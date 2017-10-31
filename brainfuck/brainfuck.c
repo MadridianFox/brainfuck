@@ -37,20 +37,6 @@ int canDoStep(struct Machine *machine){
     return machine->_current_stmt != 0;
 }
 
-/*
-struct StatementHandler* new_StatementHandler(char symbol, struct Operator* (*handler)(struct Machine*), enum loop type){
-    struct StatementHandler* sth = (struct StatementHandler*) malloc(sizeof(struct StatementHandler));
-    sth->handler = handler;
-    sth->symbol = symbol;
-    sth->loop_type = type;
-    return sth;
-}
-
-void delete_StatementHandler(struct StatementHandler *sth){
-    free(sth);
-}
-*/
-
 struct Operator* new_Operator(struct StatementHandler* sth){
     struct Operator* op = (struct Operator*) malloc(sizeof(struct Operator));
     op->sth = sth;
@@ -179,5 +165,43 @@ struct Operator* hLoopEnd(struct Machine* machine){
     }else{
         return machine->_current_stmt->next;
     }
+}
+
+struct StatementHandler* makeSthArray(){
+    struct StatementHandler *sth_array = calloc(HANDLERS_COUNT, sizeof(struct StatementHandler));
+
+    sth_array[0].handler = hPlus;
+    sth_array[0].symbol = '+';
+    sth_array[0].loop_type = NO_LOOP;
+
+    sth_array[1].handler = hMinus;
+    sth_array[1].symbol = '-';
+    sth_array[1].loop_type = NO_LOOP;
+
+    sth_array[2].handler = hNext;
+    sth_array[2].symbol = '>';
+    sth_array[2].loop_type = NO_LOOP;
+
+    sth_array[3].handler = hPrev;
+    sth_array[3].symbol = '<';
+    sth_array[3].loop_type = NO_LOOP;
+
+    sth_array[4].handler = hIn;
+    sth_array[4].symbol = ',';
+    sth_array[4].loop_type = NO_LOOP;
+
+    sth_array[5].handler = hOut;
+    sth_array[5].symbol = '.';
+    sth_array[5].loop_type = NO_LOOP;
+
+    sth_array[6].handler = hLoopStart;
+    sth_array[6].symbol = '[';
+    sth_array[6].loop_type = LOOP_START;
+
+    sth_array[7].handler = hLoopEnd;
+    sth_array[7].symbol = ']';
+    sth_array[7].loop_type = LOOP_END;
+
+    return sth_array;
 }
 

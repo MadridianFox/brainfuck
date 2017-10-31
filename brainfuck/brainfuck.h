@@ -29,10 +29,6 @@ struct StatementHandler{
     enum loop loop_type;
 };
 
-/*
-struct StatementHandler* new_StatementHandler(char, struct Operator* (*)(struct Machine*), enum loop);
-void delete_StatementHandler(struct StatementHandler*);
-*/
 struct Operator{
     struct StatementHandler* sth;
     struct Operator* next;
@@ -54,6 +50,8 @@ void pushLoop(struct LoopStack** stack, struct Operator* op);
 struct Operator* popLoop(struct LoopStack** stack);
 
 void stepProgramm(struct Machine* machine);
+
+struct StatementHandler* makeSthArray();
 
 // default operation handlers
 
